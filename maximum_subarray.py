@@ -2,32 +2,10 @@ class Solution:
     def maxSubArray(self, nums):
         if max(nums) <= 0:
             return max(nums)
-        i = 0
-        while i<len(nums)-1:
-            if nums[i]*nums[i+1]>=0:
-                nums = nums[:i] + [nums[i]+nums[i+1]] + nums[i+2:]
-            else:
-                i+=1
-        if nums[0] <= 0:
-            nums = nums[1:]
-        if nums[-1] <= 0:
-            nums = nums[:-1]
-        k = 2
-        while k<len(nums):
-            n = len(nums) + 1
-            while len(nums) < n and len(nums) > k:
-                i = 0
-                n = len(nums)
-                while i < len(nums) - k and len(nums) > k :
-                    if sum(nums[i:i+k+1]) >= max(nums[i:i+k+1]):
-                        nums = nums[:i] + [sum(nums[i:i+k+1])] + nums[i+k+1:]
-                        k = 2
-                        i = 0
-                    else:
-                        i+=2
-            k+=2
+        for i in range(1, len(nums)):
+            if nums[i-1]>0:
+                nums[i]+=nums[i-1]
         return max(nums)
-
 
 
 assert Solution().maxSubArray([-2,1,-3,4,-1,2,1,-5,4]) == 6
