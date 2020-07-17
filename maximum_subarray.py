@@ -12,23 +12,20 @@ class Solution:
             nums = nums[1:]
         if nums[-1] <= 0:
             nums = nums[:-1]
-        m = len(nums) + 1
-        while len(nums) < m:
-            m = len(nums)
-            k = 2
-            while k<len(nums):
-                n = len(nums) + 1
-                while len(nums) < n and len(nums) > k:
-                    i = 0
-                    n = len(nums)
-                    while i < len(nums) - k and len(nums) > k :
-                        if sum(nums[i:i+k+1]) >= max(nums[i:i+k+1]):
-                            nums = nums[:i] + [sum(nums[i:i+k+1])] + nums[i+k+1:]
-                            k = 2
-                            i = 0
-                        else:
-                            i+=2
-                k+=2
+        k = 2
+        while k<len(nums):
+            n = len(nums) + 1
+            while len(nums) < n and len(nums) > k:
+                i = 0
+                n = len(nums)
+                while i < len(nums) - k and len(nums) > k :
+                    if sum(nums[i:i+k+1]) >= max(nums[i:i+k+1]):
+                        nums = nums[:i] + [sum(nums[i:i+k+1])] + nums[i+k+1:]
+                        k = 2
+                        i = 0
+                    else:
+                        i+=2
+            k+=2
         return max(nums)
 
 
