@@ -1,12 +1,10 @@
 class Solution:
     def maxSubArray(self, nums):
-        if max(nums) <= 0:
-            return max(nums)
-        for i in range(1, len(nums)):
+        for i in range(1,len(nums)):
             if nums[i-1]>0:
                 nums[i]+=nums[i-1]
+            i+=1
         return max(nums)
-
 
 assert Solution().maxSubArray([-2,1,-3,4,-1,2,1,-5,4]) == 6
 assert Solution().maxSubArray([-5,8,-5,1,1,-3,5,5,-3,-3,6,4,-7,-4,-8,0,-1,-6]) == 16
