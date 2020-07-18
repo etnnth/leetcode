@@ -3,9 +3,9 @@ class Solution:
 
 
         def find(x):
-            if x != parents[x]:
-                parents[x] = find(parents[x])
-            return parents[x]
+            while x != parents[x]:
+                x = parents[x]
+            return x
 
 
         def union(x, y):
@@ -20,8 +20,8 @@ class Solution:
 
 
         n = len(M)
-        parents = list(range(n))
-        rang =  [0 for p in parents]
+        parents = {i:i for i in range(n)}
+        rang =  {i:0 for i in range(n)}
         for i in range(n):
 #            print(parents)
             for j in range(n):
@@ -30,6 +30,7 @@ class Solution:
 
 #        print(parents)
         return len(set(find(i) for i in range(n)))
+
 
 
 
