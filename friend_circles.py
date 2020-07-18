@@ -1,26 +1,27 @@
 class Solution:
     def findCircleNum(self, M):
-        n = len(M)
-        L = [i for i in range(n)]
-        for i in range(n):
-            M[i][i] = 0
-        k = 0
-        while k < n:
-            N = [(k,i) for i in range(n) if M[k][i]>0]
-            for i in range(n):
-                M[k][i]=0
-                M[i][k]=0
-            while len(N)>0:
-                i,j = N[0]
-                L[j] = L[i]
-                N = N[1:] + [(j,i) for i in range(n) if M[j][i]>0]
-                for i in range(n):
-                    M[j][i]=0
-                    M[i][j]=0
-            k+=1
-        print(L)
-        return len(set(L))
 
+
+        def find(x):
+            if x != parents[x]:
+                parents[x] = find(parents[x])
+            return parents[x]
+
+
+        def union(x, y):
+            parents[find(x)] = find(y)
+
+
+        n = len(M)
+        parents = list(range(n))
+        for i in range(n):
+            print(parents)
+            for j in range(n):
+                if M[i][j]:
+                    union(i,j)
+
+        print(parents)
+        return len(set(find(i) for i in range(n)))
 
 
 
@@ -43,3 +44,19 @@ M = [[1,0,0,0,0,0,0,0,0,1,0,0,0,0,0],
     [0,1,0,0,0,0,0,0,0,0,0,0,0,1,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]]
 assert Solution().findCircleNum(M) == 8
+M =[[1,1,0,0,0,0,0,1,0,0,0,0,0,0,0],
+    [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,1,0,1,1,0,0,0,0,0,0,0,0],
+    [0,0,0,0,1,0,0,0,0,1,1,0,0,0,0],
+    [0,0,0,1,0,1,0,0,0,0,1,0,0,0,0],
+    [0,0,0,1,0,0,1,0,1,0,0,0,0,1,0],
+    [1,0,0,0,0,0,0,1,1,0,0,0,0,0,0],
+    [0,0,0,0,0,0,1,1,1,0,0,0,0,1,0],
+    [0,0,0,0,1,0,0,0,0,1,0,1,0,0,1],
+    [0,0,0,0,1,1,0,0,0,0,1,1,0,0,0],
+    [0,0,0,0,0,0,0,0,0,1,1,1,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],
+    [0,0,0,0,0,0,1,0,1,0,0,0,0,1,0],
+    [0,0,0,0,0,0,0,0,0,1,0,0,0,0,1]]
+assert Solution().findCircleNum(M) == 3
