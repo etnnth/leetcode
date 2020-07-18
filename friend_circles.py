@@ -9,18 +9,26 @@ class Solution:
 
 
         def union(x, y):
-            parents[find(x)] = find(y)
+            i,j = find(x), find(y)
+            if i != j:
+                if rang[i] < rang[j]:
+                    parents[i] = j
+                else:
+                    parents[j] = i
+                    if rang[i] == rang[j]:
+                        rang[i] +=1
 
 
         n = len(M)
         parents = list(range(n))
+        rang =  [0 for p in parents]
         for i in range(n):
-            print(parents)
+#            print(parents)
             for j in range(n):
                 if M[i][j]:
                     union(i,j)
 
-        print(parents)
+#        print(parents)
         return len(set(find(i) for i in range(n)))
 
 
