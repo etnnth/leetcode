@@ -24,7 +24,7 @@ class Solution:
         rang =  {i:0 for i in range(n)}
         for i in range(n):
 #            print(parents)
-            for j in range(n):
+            for j in range(i,n):
                 if M[i][j]:
                     union(i,j)
 
